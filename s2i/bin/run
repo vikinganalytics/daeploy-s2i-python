@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# S2I run script for the 'daeploy/s2i-python' image.
+# The run script executes the server that runs your application.
+#
+# For more information see the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+cd $HOME
+
+if [ -z "$APP_SCRIPT" ] && [ -z "$APP_FILE" ] && [ -z "$APP_MODULE" ]; then
+  # Set default values for APP_SCRIPT and APP_FILE only when all three APP_
+  # variables are not defined by user. This prevents a situation when
+  # APP_MODULE is defined to app:application but the app.py file is found as the
+  # APP_FILE and then executed by Python instead of gunicorn.
+  APP_SCRIPT="app.sh"
+  APP_SCRIPT_DEFAULT=1
+  APP_FILE="app.py"
+  APP_FILE_DEFAULT=1
+fi
+
+if [ ! -z "$APP_SCRIPT" ]; then
+  if [[ -f "$APP_SCRIPT" ]]; then
+    echo "---> Running application from script ($APP_SCRIPT) ..."
+    if [[ "$APP_SCRIPT" != /* ]]; then
+      APP_SCRIPT="$HOME/$APP_SCRIPT"
+    fi
+    "$APP_SCRIPT"
+  elif [[ -z "$APP_SCRIPT_DEFAULT" ]]; then
+    echo "ERROR: file '$APP_SCRIPT' not found." && exit 1
+  fi
+fi
+
+if [ ! -z "$APP_FILE" ]; then
+  if [[ -f "$APP_FILE" ]]; then
+    echo "---> Running application from Python script ($APP_FILE) ..."
+    python "$HOME/$APP_FILE"
+  elif [[ -z "$APP_FILE_DEFAULT" ]]; then
+    echo "ERROR: file '$APP_FILE' not found." && exit 1
+  fi
+fi
