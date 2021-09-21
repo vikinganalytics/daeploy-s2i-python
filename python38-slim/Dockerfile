@@ -6,7 +6,7 @@ LABEL maintainer="Viking Analytics AB"
 ENV BUILDER_VERSION 1.0
 
 # Set labels used in OpenShift to describe the builder image
-LABEL io.k8s.description="Platform for building daeploy images with reduced size" \
+LABEL io.k8s.description="Platform for building Daeploy images with reduced size" \
     io.k8s.display-name="Daeploy python builder" \
     io.openshift.expose-services="8080:http" \
     io.openshift.tags="builder,daeploy,python." \
