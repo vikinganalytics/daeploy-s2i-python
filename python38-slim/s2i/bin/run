@@ -7,7 +7,7 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-cd $HOME
+cd "$APP_ROOT/src"
 
 if [ -z "$APP_SCRIPT" ] && [ -z "$APP_FILE" ] && [ -z "$APP_MODULE" ]; then
   # Set default values for APP_SCRIPT and APP_FILE only when all three APP_
@@ -24,8 +24,9 @@ if [ ! -z "$APP_SCRIPT" ]; then
   if [[ -f "$APP_SCRIPT" ]]; then
     echo "---> Running application from script ($APP_SCRIPT) ..."
     if [[ "$APP_SCRIPT" != /* ]]; then
-      APP_SCRIPT="$HOME/$APP_SCRIPT"
+      APP_SCRIPT="$APP_ROOT/src/$APP_SCRIPT"
     fi
+    chmod +x "$APP_SCRIPT"
     "$APP_SCRIPT"
   elif [[ -z "$APP_SCRIPT_DEFAULT" ]]; then
     echo "ERROR: file '$APP_SCRIPT' not found." && exit 1
@@ -35,7 +36,7 @@ fi
 if [ ! -z "$APP_FILE" ]; then
   if [[ -f "$APP_FILE" ]]; then
     echo "---> Running application from Python script ($APP_FILE) ..."
-    python "$HOME/$APP_FILE"
+    python "$APP_FILE"
   elif [[ -z "$APP_FILE_DEFAULT" ]]; then
     echo "ERROR: file '$APP_FILE' not found." && exit 1
   fi

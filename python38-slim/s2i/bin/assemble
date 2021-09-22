@@ -13,13 +13,14 @@ if [[ "$1" == "-h" ]]; then
 fi
 
 echo "---> Installing application source ..."
-mv /tmp/src/* "$HOME"
+mkdir -p "$APP_ROOT/src"
+mv /tmp/src/* "$APP_ROOT/src"
 
 # Install dependencies
 echo "---> Upgrading pip and setuptools"
 pip install -U pip setuptools
 
-cd $HOME
+cd "$APP_ROOT/src"
 if [[ -f requirements.txt ]]; then
   echo "---> Installing dependencies..."
   python -m pip install -r requirements.txt
