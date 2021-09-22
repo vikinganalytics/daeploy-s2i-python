@@ -4,8 +4,8 @@ FROM python:3.8-slim
 LABEL maintainer="Viking Analytics AB"
 
 ENV BUILDER_VERSION=1.0 \
-    APP_ROOT="app_root" \
-    STI_SCRIPTS_PATH=".s2i/bin"
+    APP_ROOT="/app_root" \
+    STI_SCRIPTS_PATH="/.s2i/bin"
 
 # Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for building Daeploy images with reduced size" \
