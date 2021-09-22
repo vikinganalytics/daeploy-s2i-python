@@ -32,7 +32,7 @@ cid_file=$($MKTEMP_EXEC -u)
 s2i_args="--pull-policy=never --loglevel=2"
 
 # Port the image exposes service to be tested
-test_port=8080
+test_port=8000
 
 image_exists() {
   docker inspect $1 &>/dev/null
@@ -110,6 +110,20 @@ test_usage() {
   s2i usage ${s2i_args} ${IMAGE_NAME} &>/dev/null
 }
 
+http_call() {
+  local url="$1"
+  curl -X 'POST' \
+    "$url" \
+    -w %{http_code} \
+    -s \
+    -o /dev/null \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "name": "Snorre Sturlasson"
+    }'
+}
+
 test_connection() {
   echo "Testing HTTP connection (http://$(container_ip):$(container_port))"
   local max_attempts=10
@@ -117,8 +131,8 @@ test_connection() {
   local attempt=1
   local result=1
   while [ $attempt -le $max_attempts ]; do
-    echo "Sending GET request to http://$(container_ip):$(container_port)/"
-    response_code=$(curl -s -w %{http_code} -o /dev/null http://$(container_ip):$(container_port)/)
+    echo "Sending POST request http://$(container_ip):$(container_port)/hello"
+    response_code=$(http_call http://$(container_ip):$(container_port)/hello)
     status=$?
     if [ $status -eq 0 ]; then
       if [ $response_code -eq 200 ]; then
@@ -152,3 +166,4 @@ test_connection
 check_result $?
 
 cleanup
+echo "Test successful"
