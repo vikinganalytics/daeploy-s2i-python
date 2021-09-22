@@ -23,8 +23,11 @@ fi
 if [ ! -z "$APP_SCRIPT" ]; then
   if [[ -f "$APP_SCRIPT" ]]; then
     echo "---> Running application from script ($APP_SCRIPT) ..."
-    chmod +x "./$APP_SCRIPT"
-    "./$APP_SCRIPT"
+    if [[ "$APP_SCRIPT" != /* ]]; then
+      APP_SCRIPT="$APP_ROOT/src/$APP_SCRIPT"
+    fi
+    chmod +x "$APP_SCRIPT"
+    "$APP_SCRIPT"
   elif [[ -z "$APP_SCRIPT_DEFAULT" ]]; then
     echo "ERROR: file '$APP_SCRIPT' not found." && exit 1
   fi
