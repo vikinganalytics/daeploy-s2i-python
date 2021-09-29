@@ -13,6 +13,7 @@ if [[ "$1" == "-h" ]]; then
 fi
 
 echo "---> Installing application source ..."
+shopt -s dotglob
 mkdir -p "$APP_ROOT/src"
 mv /tmp/src/* "$APP_ROOT/src"
 
