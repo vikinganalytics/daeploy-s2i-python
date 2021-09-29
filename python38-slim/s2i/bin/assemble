@@ -9,18 +9,17 @@
 
 # If the 'daeploy/s2i-python' assemble script is executed with the '-h' flag, print the usage.
 if [[ "$1" == "-h" ]]; then
-	exec /usr/lib/s2i/usage
+	exec $STI_SCRIPTS_PATH/usage
 fi
 
 echo "---> Installing application source ..."
-mkdir -p "$APP_ROOT/src"
-mv /tmp/src/* "$APP_ROOT/src"
+shopt -s dotglob
+mv /tmp/src/* "$HOME"
 
 # Install dependencies
 echo "---> Upgrading pip and setuptools"
-pip install -U pip setuptools
+pip install -U pip
 
-cd "$APP_ROOT/src"
 if [[ -f requirements.txt ]]; then
   echo "---> Installing dependencies..."
   python -m pip install -r requirements.txt

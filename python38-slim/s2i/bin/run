@@ -7,7 +7,7 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-cd "$APP_ROOT/src"
+cd $HOME
 
 if [ -z "$APP_SCRIPT" ] && [ -z "$APP_FILE" ] && [ -z "$APP_MODULE" ]; then
   # Set default values for APP_SCRIPT and APP_FILE only when all three APP_
