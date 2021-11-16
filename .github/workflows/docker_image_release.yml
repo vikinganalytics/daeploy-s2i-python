@@ -22,4 +22,7 @@ jobs:
     - name: Docker build and push
       run: |
         docker build -t daeploy/s2i-python:3.8-slim-${{ github.event.release.tag_name }} -t daeploy/s2i-python:latest ./python38-slim
+        docker build -t daeploy/s2i-python:3.6-slim-${{ github.event.release.tag_name }} ./python36-slim
+        docker build -t daeploy/s2i-python:3.7-slim-${{ github.event.release.tag_name }} ./python37-slim
+        docker build -t daeploy/s2i-python:3.9-slim-${{ github.event.release.tag_name }} ./python39-slim
         docker push --all-tags daeploy/s2i-python
