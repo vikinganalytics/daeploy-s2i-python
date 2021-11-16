@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-s2i-builder-images:
+  test-python38:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,11 +17,5 @@ jobs:
         run: |
           wget -c https://github.com/openshift/source-to-image/releases/download/v1.3.0/source-to-image-v1.3.0-eed2850f-linux-amd64.tar.gz -O - | tar -xz
           sudo cp s2i /usr/local/bin
-      - name: Test python 3.6 image
-        run: make test -C python36-slim/
-      - name: Test python 3.7 image
-        run: make test -C python37-slim/
-      - name: Test python 3.8 image
+      - name: Run the test script
         run: make test -C python38-slim/
-      - name: Test python 3.9 image
-        run: make test -C python39-slim/
