@@ -10,18 +10,18 @@ on:
 
 jobs:
   test-python36:
-    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    uses: vikinganalytics/daeploy-s2i-python/.github/workflows/ci_check_image.yml@more-python-versions
     with:
       imagename: python36-slim
   test-python37:
-    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    uses: vikinganalytics/daeploy-s2i-python/.github/workflows/ci_check_image.yml@more-python-versions
     with:
       imagename: python37-slim
   test-python38:
-    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    uses: vikinganalytics/daeploy-s2i-python/.github/workflows/ci_check_image.yml@more-python-versions
     with:
       imagename: python38-slim
   test-python39:
-    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    uses: vikinganalytics/daeploy-s2i-python/.github/workflows/ci_check_image.yml@more-python-versions
     with:
       imagename: python39-slim
