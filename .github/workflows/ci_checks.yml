@@ -19,3 +19,5 @@ jobs:
           sudo cp s2i /usr/local/bin
       - name: Run the test script
         run: make test -C python38-slim/
+      - name: Run the test script
+        run: make test -C python39-slim/
