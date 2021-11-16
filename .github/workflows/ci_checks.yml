@@ -9,13 +9,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  test-python36:
+    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    with:
+      imagename: python36-slim
+  test-python37:
+    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    with:
+      imagename: python37-slim
   test-python38:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: "Install s2i"
-        run: |
-          wget -c https://github.com/openshift/source-to-image/releases/download/v1.3.0/source-to-image-v1.3.0-eed2850f-linux-amd64.tar.gz -O - | tar -xz
-          sudo cp s2i /usr/local/bin
-      - name: Run the test script
-        run: make test -C python38-slim/
+    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    with:
+      imagename: python38-slim
+  test-python39:
+    uses: vikinganalytics/daeploy-s2i-python/.gitub/workflows/ci_check_image.yml@master
+    with:
+      imagename: python39-slim
