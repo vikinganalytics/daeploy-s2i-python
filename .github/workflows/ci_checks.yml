@@ -25,3 +25,5 @@ jobs:
         run: make test -C python38-slim/
       - name: Test python 3.9 image
         run: make test -C python39-slim/
+      - name: Test python 3.12 image
+        run: make test -C python312-slim/
